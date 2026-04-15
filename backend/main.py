@@ -38,6 +38,11 @@ def index():
     return FileResponse("static/index.html")
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 @app.get("/api/config")
 def config():
     return {"stripe_publishable_key": os.environ["STRIPE_PUBLISHABLE_KEY"]}
