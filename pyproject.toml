@@ -1,0 +1,21 @@
+[project]
+name = "ai-resume-generator"
+version = "0.1.0"
+description = "AI-powered resume and cover letter generator (pay-per-use SaaS)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.115.5",
+    "uvicorn[standard]==0.32.1",
+    "anthropic==0.40.0",
+    "stripe==11.3.0",
+    "reportlab==4.2.5",
+    "python-dotenv==1.0.1",
+    "python-multipart==0.0.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = []

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +10,12 @@
 <body>
   <div class="container">
     <header>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="it">🇮🇹 IT</button>
+        <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+      </div>
       <h1>AI Resume Generator</h1>
-      <p class="subtitle">Get a tailored, ATS-optimized resume and cover letter in seconds — powered by Claude AI.</p>
+      <p class="subtitle" data-i18n="tagline"></p>
     </header>
 
     <!-- Step 1: Form -->
@@ -19,89 +23,96 @@
       <form id="resume-form" novalidate>
 
         <fieldset>
-          <legend>Your Details</legend>
+          <legend data-i18n="legend_details"></legend>
           <div class="row-2">
-            <label>Full Name *
-              <input type="text" name="full_name" required placeholder="Jane Doe" />
+            <label>
+              <span data-i18n="label_name"></span>
+              <input type="text" name="full_name" required data-i18n="ph_name" />
             </label>
-            <label>Email *
-              <input type="email" name="email" required placeholder="jane@example.com" />
+            <label>
+              <span data-i18n="label_email"></span>
+              <input type="email" name="email" required data-i18n="ph_email" />
             </label>
           </div>
           <div class="row-2">
-            <label>Phone *
-              <input type="text" name="phone" required placeholder="+1 555 000 0000" />
+            <label>
+              <span data-i18n="label_phone"></span>
+              <input type="text" name="phone" required data-i18n="ph_phone" />
             </label>
-            <label>Current / Most Recent Title *
-              <input type="text" name="job_title" required placeholder="Software Engineer" />
+            <label>
+              <span data-i18n="label_title"></span>
+              <input type="text" name="job_title" required data-i18n="ph_title" />
             </label>
           </div>
           <div class="row-2">
-            <label>Years of Experience *
-              <input type="number" name="years_experience" required min="0" max="50" placeholder="5" />
+            <label>
+              <span data-i18n="label_years"></span>
+              <input type="number" name="years_experience" required min="0" max="50" data-i18n="ph_years" />
             </label>
-            <label>Key Skills * <span class="hint">(comma-separated)</span>
-              <input type="text" name="skills" required placeholder="Python, React, SQL, leadership" />
+            <label>
+              <span data-i18n="label_skills"></span>
+              <span class="hint" data-i18n-hint="hint_skills"></span>
+              <input type="text" name="skills" required data-i18n="ph_skills" />
             </label>
           </div>
-          <label>Work History Summary *
-            <textarea name="work_history" required rows="4"
-              placeholder="Briefly describe your roles and achievements: company names, responsibilities, key wins…"></textarea>
+          <label>
+            <span data-i18n="label_history"></span>
+            <textarea name="work_history" required rows="4" data-i18n="ph_history"></textarea>
           </label>
         </fieldset>
 
         <fieldset>
-          <legend>Target Role</legend>
-          <label>Target Job Title *
-            <input type="text" name="target_role" required placeholder="Senior Product Manager" />
+          <legend data-i18n="legend_role"></legend>
+          <label>
+            <span data-i18n="label_target"></span>
+            <input type="text" name="target_role" required data-i18n="ph_target" />
           </label>
-          <label>Job Description * <span class="hint">(paste the full job posting)</span>
-            <textarea name="job_description" required rows="6"
-              placeholder="We are looking for a…"></textarea>
+          <label>
+            <span data-i18n="label_jd"></span>
+            <span class="hint" data-i18n-hint="hint_jd"></span>
+            <textarea name="job_description" required rows="6" data-i18n="ph_jd"></textarea>
           </label>
         </fieldset>
 
         <fieldset>
-          <legend>What do you need?</legend>
+          <legend data-i18n="legend_doctype"></legend>
           <div class="doc-type-grid">
             <label class="card-option">
               <input type="radio" name="doc_type" value="resume" required />
               <span>
-                <strong>Resume only</strong>
-                <em>$1.99</em>
+                <strong data-i18n="opt_resume"></strong>
+                <em data-i18n="price_resume"></em>
               </span>
             </label>
             <label class="card-option">
               <input type="radio" name="doc_type" value="cover_letter" />
               <span>
-                <strong>Cover Letter only</strong>
-                <em>$1.99</em>
+                <strong data-i18n="opt_cover"></strong>
+                <em data-i18n="price_cover"></em>
               </span>
             </label>
             <label class="card-option">
               <input type="radio" name="doc_type" value="both" />
               <span>
-                <strong>Resume + Cover Letter</strong>
-                <em>$2.99</em>
+                <strong data-i18n="opt_both"></strong>
+                <em data-i18n="price_both"></em>
               </span>
             </label>
           </div>
         </fieldset>
 
-        <button type="submit" class="btn-primary" id="btn-checkout">
-          Continue to Payment →
-        </button>
+        <button type="submit" class="btn-primary" id="btn-checkout" data-i18n="btn_checkout"></button>
       </form>
     </section>
 
     <!-- Step 2: Payment -->
     <section id="step-payment" class="hidden">
-      <h2>Complete Payment</h2>
+      <h2 id="step2-title" data-i18n="step2_title"></h2>
       <p id="payment-summary"></p>
       <form id="payment-form">
         <div id="payment-element"></div>
-        <button type="submit" class="btn-primary" id="btn-pay">Pay & Generate PDF</button>
-        <button type="button" class="btn-secondary" id="btn-back">← Back</button>
+        <button type="submit" class="btn-primary" id="btn-pay" data-i18n="btn_pay"></button>
+        <button type="button" class="btn-secondary" id="btn-back" data-i18n="btn_back"></button>
       </form>
       <div id="payment-error" class="error-msg hidden"></div>
     </section>
@@ -109,15 +120,15 @@
     <!-- Step 3: Processing -->
     <section id="step-processing" class="hidden">
       <div class="spinner"></div>
-      <p>Generating your documents with Claude AI…</p>
+      <p id="step3-msg" data-i18n="step3_msg"></p>
     </section>
 
     <!-- Step 4: Done -->
     <section id="step-done" class="hidden">
       <div class="success-icon">✓</div>
-      <h2>Your documents are ready!</h2>
-      <p>Your PDF is downloading automatically.</p>
-      <button class="btn-secondary" id="btn-restart">Generate another →</button>
+      <h2 id="step4-title" data-i18n="step4_title"></h2>
+      <p id="step4-msg" data-i18n="step4_msg"></p>
+      <button class="btn-secondary" id="btn-restart" data-i18n="btn_restart"></button>
     </section>
 
   </div>

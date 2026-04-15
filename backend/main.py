@@ -57,6 +57,7 @@ class GenerateRequest(BaseModel):
     job_description: str
     doc_type: str        # "resume" | "cover_letter" | "both"
     payment_intent_id: str
+    language: str = "it" # "it" | "en"
 
 
 class CheckoutRequest(BaseModel):
@@ -121,7 +122,26 @@ async def generate(body: GenerateRequest):
 
 # ── Claude helpers ───────────────────────────────────────────────────────────
 
+_LANG_INSTRUCTIONS = {
+    "it": "Write the entire document in Italian (italiano). Use formal Italian register (Lei form where applicable).",
+    "en": "Write the entire document in English.",
+}
+
+_RESUME_HEADERS = {
+    "it": "Use SOMMARIO, ESPERIENZA, COMPETENZE, FORMAZIONE as section headers (uppercase Italian).",
+    "en": "Use SUMMARY, EXPERIENCE, SKILLS, EDUCATION as section headers (uppercase).",
+}
+
+_COVER_SALUTATION = {
+    "it": 'Start with "Gentile Responsabile delle Risorse Umane,"',
+    "en": 'Start with "Dear Hiring Manager,"',
+}
+
+
 def _generate_resume(req: GenerateRequest) -> str:
+    lang_instr  = _LANG_INSTRUCTIONS.get(req.language, _LANG_INSTRUCTIONS["it"])
+    header_instr = _RESUME_HEADERS.get(req.language, _RESUME_HEADERS["it"])
+
     prompt = f"""You are an expert resume writer. Create a professional, ATS-optimized resume.
 
 Candidate details:
@@ -138,8 +158,9 @@ Job description they are applying to:
 {req.job_description}
 
 Instructions:
+- {lang_instr}
 - Write in a clean, professional format using plain text with clear section headers
-- Use SUMMARY, EXPERIENCE, SKILLS, EDUCATION as section headers (uppercase)
+- {header_instr}
 - Tailor bullet points to match keywords from the job description
 - Use strong action verbs and quantify achievements where possible
 - Keep it to one page worth of content
@@ -154,6 +175,9 @@ Instructions:
 
 
 def _generate_cover_letter(req: GenerateRequest) -> str:
+    lang_instr   = _LANG_INSTRUCTIONS.get(req.language, _LANG_INSTRUCTIONS["it"])
+    salutation   = _COVER_SALUTATION.get(req.language, _COVER_SALUTATION["it"])
+
     prompt = f"""You are an expert career coach. Write a compelling, personalized cover letter.
 
 Candidate details:
@@ -169,11 +193,11 @@ Job description:
 {req.job_description}
 
 Instructions:
+- {lang_instr}
 - Write 3–4 paragraphs: hook, relevant experience, why this company/role, call to action
 - Tone: confident, enthusiastic, professional
-- Avoid clichés like "I am writing to apply for…"
 - Do NOT include any commentary — output only the cover letter text
-- Start with "Dear Hiring Manager,"
+- {salutation}
 - End with a professional sign-off including the candidate's name"""
 
     message = claude.messages.create(

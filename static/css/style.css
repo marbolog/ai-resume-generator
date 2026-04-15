@@ -14,6 +14,30 @@ body {
   margin: 0 auto;
 }
 
+/* ── Language toggle ── */
+.lang-toggle {
+  display: flex;
+  justify-content: flex-end;
+  gap: .4rem;
+  margin-bottom: 1rem;
+}
+.lang-btn {
+  padding: .3rem .75rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all .2s;
+}
+.lang-btn.active {
+  border-color: #4f46e5;
+  color: #4f46e5;
+  background: #f5f3ff;
+}
+
 /* ── Header ── */
 header {
   text-align: center;
