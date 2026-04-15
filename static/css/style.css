@@ -1,0 +1,217 @@
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f4f6fb;
+  color: #1a1a2e;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1a1a2e 0%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle {
+  margin-top: .5rem;
+  color: #6b7280;
+  font-size: .95rem;
+}
+
+/* ── Card sections ── */
+section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07);
+}
+section.hidden { display: none; }
+
+/* ── Fieldsets ── */
+fieldset {
+  border: none;
+  margin-bottom: 1.75rem;
+}
+legend {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #4f46e5;
+  margin-bottom: 1rem;
+}
+
+/* ── Form elements ── */
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #374151;
+  gap: .4rem;
+  margin-bottom: .9rem;
+}
+label .hint {
+  font-weight: 400;
+  color: #9ca3af;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: .55rem .75rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: .9rem;
+  color: #1a1a2e;
+  transition: border-color .2s;
+  font-family: inherit;
+  resize: vertical;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+}
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ── Doc-type cards ── */
+.doc-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+}
+.card-option {
+  flex-direction: row;
+  align-items: flex-start;
+  cursor: pointer;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  padding: .75rem 1rem;
+  transition: border-color .2s, background .2s;
+  margin-bottom: 0;
+}
+.card-option input[type="radio"] { margin-top: 3px; accent-color: #4f46e5; }
+.card-option span {
+  display: flex;
+  flex-direction: column;
+  margin-left: .5rem;
+  gap: .2rem;
+}
+.card-option strong { font-size: .85rem; }
+.card-option em { font-size: .9rem; color: #4f46e5; font-style: normal; font-weight: 700; }
+.card-option:has(input:checked) {
+  border-color: #4f46e5;
+  background: #f5f3ff;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  width: 100%;
+  padding: .8rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .2s;
+  margin-top: .5rem;
+}
+.btn-primary:hover { opacity: .9; }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+.btn-secondary {
+  width: 100%;
+  padding: .75rem;
+  background: transparent;
+  color: #4f46e5;
+  font-size: .9rem;
+  font-weight: 600;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: .75rem;
+  transition: background .2s;
+}
+.btn-secondary:hover { background: #f5f3ff; }
+
+/* ── Payment step ── */
+#step-payment h2 { margin-bottom: .5rem; }
+#payment-summary { color: #6b7280; font-size: .9rem; margin-bottom: 1.25rem; }
+#payment-element { margin-bottom: 1.25rem; }
+
+/* ── Error ── */
+.error-msg {
+  color: #dc2626;
+  font-size: .85rem;
+  margin-top: .75rem;
+  padding: .6rem .8rem;
+  background: #fef2f2;
+  border-radius: 6px;
+  border: 1px solid #fecaca;
+}
+
+/* ── Processing ── */
+#step-processing {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Done step ── */
+#step-done {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.success-icon {
+  width: 64px;
+  height: 64px;
+  background: #d1fae5;
+  color: #059669;
+  font-size: 2rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+#step-done h2 { margin-bottom: .5rem; }
+#step-done p { color: #6b7280; margin-bottom: 1.5rem; }
+
+/* ── Responsive ── */
+@media (max-width: 580px) {
+  .row-2 { grid-template-columns: 1fr; }
+  .doc-type-grid { grid-template-columns: 1fr; }
+}

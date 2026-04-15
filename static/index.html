@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Generator</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>AI Resume Generator</h1>
+      <p class="subtitle">Get a tailored, ATS-optimized resume and cover letter in seconds — powered by Claude AI.</p>
+    </header>
+
+    <!-- Step 1: Form -->
+    <section id="step-form">
+      <form id="resume-form" novalidate>
+
+        <fieldset>
+          <legend>Your Details</legend>
+          <div class="row-2">
+            <label>Full Name *
+              <input type="text" name="full_name" required placeholder="Jane Doe" />
+            </label>
+            <label>Email *
+              <input type="email" name="email" required placeholder="jane@example.com" />
+            </label>
+          </div>
+          <div class="row-2">
+            <label>Phone *
+              <input type="text" name="phone" required placeholder="+1 555 000 0000" />
+            </label>
+            <label>Current / Most Recent Title *
+              <input type="text" name="job_title" required placeholder="Software Engineer" />
+            </label>
+          </div>
+          <div class="row-2">
+            <label>Years of Experience *
+              <input type="number" name="years_experience" required min="0" max="50" placeholder="5" />
+            </label>
+            <label>Key Skills * <span class="hint">(comma-separated)</span>
+              <input type="text" name="skills" required placeholder="Python, React, SQL, leadership" />
+            </label>
+          </div>
+          <label>Work History Summary *
+            <textarea name="work_history" required rows="4"
+              placeholder="Briefly describe your roles and achievements: company names, responsibilities, key wins…"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Target Role</legend>
+          <label>Target Job Title *
+            <input type="text" name="target_role" required placeholder="Senior Product Manager" />
+          </label>
+          <label>Job Description * <span class="hint">(paste the full job posting)</span>
+            <textarea name="job_description" required rows="6"
+              placeholder="We are looking for a…"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>What do you need?</legend>
+          <div class="doc-type-grid">
+            <label class="card-option">
+              <input type="radio" name="doc_type" value="resume" required />
+              <span>
+                <strong>Resume only</strong>
+                <em>$1.99</em>
+              </span>
+            </label>
+            <label class="card-option">
+              <input type="radio" name="doc_type" value="cover_letter" />
+              <span>
+                <strong>Cover Letter only</strong>
+                <em>$1.99</em>
+              </span>
+            </label>
+            <label class="card-option">
+              <input type="radio" name="doc_type" value="both" />
+              <span>
+                <strong>Resume + Cover Letter</strong>
+                <em>$2.99</em>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn-primary" id="btn-checkout">
+          Continue to Payment →
+        </button>
+      </form>
+    </section>
+
+    <!-- Step 2: Payment -->
+    <section id="step-payment" class="hidden">
+      <h2>Complete Payment</h2>
+      <p id="payment-summary"></p>
+      <form id="payment-form">
+        <div id="payment-element"></div>
+        <button type="submit" class="btn-primary" id="btn-pay">Pay & Generate PDF</button>
+        <button type="button" class="btn-secondary" id="btn-back">← Back</button>
+      </form>
+      <div id="payment-error" class="error-msg hidden"></div>
+    </section>
+
+    <!-- Step 3: Processing -->
+    <section id="step-processing" class="hidden">
+      <div class="spinner"></div>
+      <p>Generating your documents with Claude AI…</p>
+    </section>
+
+    <!-- Step 4: Done -->
+    <section id="step-done" class="hidden">
+      <div class="success-icon">✓</div>
+      <h2>Your documents are ready!</h2>
+      <p>Your PDF is downloading automatically.</p>
+      <button class="btn-secondary" id="btn-restart">Generate another →</button>
+    </section>
+
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
